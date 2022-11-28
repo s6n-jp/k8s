@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  url: https://argocd.k8s.s6n.jp
+  oidc.config: |
+    name: UniFi
+    issuer: https://s6n-jp.ui.com/gw/idp/api/v1/public/oauth/9ec95f77-6560-4f24-b25a-f49bc4514fbb
+    clientID: $argocd-oidc:clientID
+    clientSecret: $argocd-oidc:clientSecret
+    requestScopes:
+    - openid
+    - profile
+    - email
+    - groups

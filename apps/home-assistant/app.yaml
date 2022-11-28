@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-assistant
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: home-assistant
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: http://pajikos.github.io/home-assistant-helm-chart/
+    chart: home-assistant
+    targetRevision: 0.2.95
+    helm:
+      values: |-
+        env:
+        - name: TZ
+          value: Asia/Tokyo
+        hostNetwork: true
+        ingress:
+          enabled: true
+          className: nginx
+          annoations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          hosts:
+          - host: home-assistant.k8s.s6n.jp
+            paths:
+              - path: /
+                pathType: Prefix
+          tls:
+          - hosts:
+            - home-assistant.k8s.s6n.jp
+            secretName: home-assistant-ingress-tls
+        configuration:
+          enabled: true
+          templateConfig: |-
+            # Loads default set of integrations. Do not remove.
+            default_config:
+
+            {{- if .Values.ingress.enabled }}
+            http:
+              use_x_forwarded_for: true
+              trusted_proxies:
+                {{- range .Values.configuration.trusted_proxies }}
+                - {{ . }}
+                {{- end }}
+            {{- end}}
+
+            # Load frontend themes from the themes folder
+            frontend:
+              themes: !include_dir_merge_named themes
+
+            automation: !include automations.yaml
+            script: !include scripts.yaml
+            scene: !include scenes.yaml
+
+            homekit:
+        persistence:
+          enabled: true
+          storageClass: nfs-client
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+  ignoreDifferences:
+  - group: apps
+    kind: StatefulSet
+    name: home-assistant
+    jsonPointers:
+    - /spec/volumeClaimTemplates/0/apiVersion
+    - /spec/volumeClaimTemplates/0/kind

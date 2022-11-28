@@ -1,0 +1,68 @@
+persistence:
+  enabled: true
+  storageClassName: nfs-client
+
+extraSecretMounts:
+- name: grafana-google
+  secretName: grafana-google
+  mountPath: /etc/secrets/grafana-google
+  defaultMode: 0440
+  readOnly: true
+- name: grafana-oauth
+  secretName: grafana-oauth
+  mountPath: /etc/secrets/grafana-oauth
+  defaultMode: 0440
+  readOnly: true
+
+admin:
+  existingSecret: grafana-admin
+
+adminUser: siketyan
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: "Loki"
+      type: loki
+      access: proxy
+      url: http://loki-gateway.loki.svc.cluster.local.
+    - name: "Prometheus"
+      type: prometheus
+      access: proxy
+      url: http://prometheus-server.prometheus.svc.cluster.local.
+    - name: "Tempo"
+      type: tempo
+      access: proxy
+      url: http://tempo.tempo.svc.cluster.local.:16686
+
+grafana.ini:
+  server:
+    root_url: https://grafana.k8s.s6n.jp/
+  auth:
+    disable_login_form: false
+    oauth_allow_insecure_email_lookup: true
+  auth.google:
+    enabled: true
+    allow_sign_up: true
+    client_id: $__file{/etc/secrets/grafana-google/client_id}
+    client_secret: $__file{/etc/secrets/grafana-google/client_secret}
+    scopes: openid email profile https://www.googleapis.com/auth/cloud-identity.groups.readonly
+    auth_url: https://accounts.google.com/o/oauth2/v2/auth
+    token_url: https://oauth2.googleapis.com/token
+    api_url: https://openidconnect.googleapis.com/v1/userinfo
+    allowed_domains: s6n.jp
+    hosted_domain: s6n.jp
+    use_pkce: true
+  auth.generic_oauth:
+    enabled: true
+    name: UniFi Identity Enterprise
+    allow_sign_up: false
+    client_id: $__file{/etc/secrets/grafana-oauth/client_id}
+    client_secret: $__file{/etc/secrets/grafana-oauth/client_secret}
+    scopes: openid email profile
+    api_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/userinfo
+    auth_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/authorize
+    token_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/token
+    use_pkce: true
+    use_refresh_token: true

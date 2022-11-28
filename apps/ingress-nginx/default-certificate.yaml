@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: default-certificate
+  namespace: ingress-nginx
+spec:
+  secretName: default-certificate-tls
+  commonName: k8s.s6n.jp
+  dnsNames:
+  - "k8s.s6n.jp"
+  - "*.k8s.s6n.jp"
+  usages:
+  - server auth
+  - client auth
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

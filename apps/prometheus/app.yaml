@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  destination:
+    namespace: prometheus
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: prometheus
+    targetRevision: 26.0.1
+    helm:
+      parameters:
+      - name: kube-state-metrics.enabled
+        value: "false"
+      - name: prometheus-pushgateway.enabled
+        value: "false"
+      - name: server.persistentVolume.storageClass
+        value: nfs-client
+      - name: alertmanager.persistence.storageClass
+        value: nfs-client
+      values: |-
+        server:
+          extraFlags:
+          - web.enable-lifecycle
+          - web.enable-remote-write-receiver
+        extraScrapeConfigs: |-
+          - job_name: proxmox-node-exporter
+            static_configs:
+            - targets:
+              - proxmox.s6n.jp:9100
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+  ignoreDifferences:
+  - group: apps
+    kind: StatefulSet
+    name: prometheus-alertmanager
+    jsonPointers:
+    - /spec/volumeClaimTemplates/0/apiVersion
+    - /spec/volumeClaimTemplates/0/kind

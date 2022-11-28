@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: grafana
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: grafana
+      targetRevision: "8.8.2"
+      helm:
+        valueFiles:
+        - $k8s/apps/grafana/values.yaml
+    - repoURL: https://github.com/s6n-jp/k8s
+      targetRevision: main
+      ref: k8s
+  revisionHistoryLimit: 1
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true

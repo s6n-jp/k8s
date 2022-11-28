@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: loki
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: loki
+    targetRevision: "6.24.0"
+    helm:
+      parameters:
+      - name: deploymentMode
+        value: "SingleBinary<->SimpleScalable"
+      - name: loki.auth_enabled
+      - value: "false"
+      - name: loki.commonConfig.replication_factor
+        value: "1"
+      - name: loki.storage.type
+        value: filesystem
+      - name: loki.useTestSchema
+        value: "true"
+      - name: singleBinary.replicas
+        value: "1"
+      - name: singleBinary.persistence.storageClass
+        value: nfs-client
+      - name: memberlist.service.publishNotReadyAddresses
+        value: "true"
+      - name: monitoring.lokiCanary.enabled
+        value: "false"
+      - name: monitoring.selfMonitoring.enabled
+        value: "false"
+      - name: test.enabled
+        value: "false"
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true

@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server-cert
+  namespace: argocd
+spec:
+  secretName: argocd-server-tls
+  commonName: argocd.k8s.s6n.jp
+  dnsNames:
+  - argocd.k8s.s6n.jp
+  usages:
+  - server auth
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

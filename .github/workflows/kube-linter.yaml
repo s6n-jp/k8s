@@ -1,0 +1,30 @@
+name: kube-linter
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+permissions:
+  actions: read
+  contents: read
+  checks: write
+  security-events: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: stackrox/kube-linter-action@v1
+        with:
+          directory: '.'
+          format: sarif
+          output-file: kube-linter.sarif
+
+      - if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: kube-linter.sarif

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gotify-ingress
+  namespace: gotify
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gotify.k8s.s6n.jp
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gotify
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - gotify.k8s.s6n.jp
+    secretName: gotify-ingress-tls
