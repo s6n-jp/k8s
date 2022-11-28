@@ -15,6 +15,6 @@ spec:
   - path: /
     action:
       pass: upstream
-  serverSnippets: |
+  server-snippets: |
     allow 172.16.0.0/16;
     deny  all;
