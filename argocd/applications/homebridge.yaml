@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homebridge
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: homebridge
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/k8s-at-home/charts.git
+    path: charts/stable/homebridge
+    targetRevision: master
+    helm:
+      parameters:
+      - name: persistence.config.enabled
+        value: "true"
+      - name: image.tag
+        value: "2022-11-14"
+      - name: hostNetwork
+        value: "true"
+      - name: env.TZ
+        value: Asia/Tokyo
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
