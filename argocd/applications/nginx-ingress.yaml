@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-ingress
+  namespace: default
+spec:
+  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://helm.nginx.com/stable
+    chart: nginx-ingress
+    targetRevision: 0.15.1
+    helm:
+      releaseName: nginx-ingress
+      parameters:
+      - name: controller.service.externalIPs[0]
+        value: "172.16.2.1"
+      - name: controller.service.externalIPs[1]
+        value: "217.178.36.114"
+      - name: controller.service.externalIPs[2]
+        value: "2409:10:9080:5400::c0:ffee"
+      - name: controller.enableTLSPassthrough
+        value: "true"
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
