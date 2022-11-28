@@ -5,8 +5,8 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   secretName: kubernetes-dashboard-certs-v2
-  duration: 2160h
-  renewBefore: 360h
+  duration: 2160h0m0s
+  renewBefore: 360h0m0s
   subject:
     countries:
     - JP
