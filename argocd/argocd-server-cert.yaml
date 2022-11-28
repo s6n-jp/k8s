@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server-cert
+  namespace: argocd
+spec:
+  secretName: argocd-server-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    countries:
+    - JP
+    provinces:
+    - Tokyo
+    localities:
+    - Kita
+    organizations:
+    - Naoki Ikeguchi
+  commonName: argocd.k8s.s6n.jp
+  dnsNames:
+  - argocd.k8s.s6n.jp
+  usages:
+  - server auth
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer

@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: homebridge
+  namespace: homebridge
+spec:
+  host: homebridge.k8s.s6n.jp
+  tls:
+    secret: homebridge-server-tls
+  upstreams:
+  - name: upstream
+    service: homebridge
+    port: 8581
+  routes:
+  - path: /
+    action:
+      pass: upstream

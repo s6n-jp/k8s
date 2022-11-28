@@ -1,0 +1,16 @@
+apiVersion: k8s.nginx.org/v1alpha1
+kind: TransportServer
+metadata:
+  name: lb-argocd
+  namespace: argocd
+spec:
+  listener:
+    name: tls-passthrough
+    protocol: TLS_PASSTHROUGH
+  host: argocd.k8s.s6n.jp
+  upstreams:
+  - name: argocd
+    service: argocd-server
+    port: 443
+  action:
+    pass: argocd

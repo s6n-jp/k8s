@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homebridge-server-cert
+  namespace: homebridge
+spec:
+  secretName: homebridge-server-tls
+  duration: 2160h
+  renewBefore: 360h
+  subject:
+    countries:
+    - JP
+    provinces:
+    - Tokyo
+    localities:
+    - Kita
+    organizations:
+    - Naoki Ikeguchi
+  commonName: homebridge.k8s.s6n.jp
+  dnsNames:
+  - homebridge.k8s.s6n.jp
+  usages:
+  - server auth
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer
