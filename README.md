@@ -2,6 +2,11 @@
 
 Kubernetes resources which are continiously deployed to MicroK8s cluster at home.
 
+## 🏗️ Requirements
+
+- Kubernetes v1.25+ (MicroK8s is recommended)
+- Helm v3.9+ (Can be installed together by MicroK8s)
+
 ## 📦 Getting Started
 
 ### 1. Install ArgoCD
