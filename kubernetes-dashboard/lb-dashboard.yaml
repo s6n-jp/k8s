@@ -14,4 +14,7 @@ spec:
     port: 443
   action:
     pass: dashboard
+  serverSnippets: |
+    allow 172.16.0.0/16;
+    deny  all;
 
