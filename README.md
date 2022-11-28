@@ -9,28 +9,7 @@ Kubernetes resources which are continiously deployed to MicroK8s cluster at home
 
 ## 📦 Getting Started
 
-### 1. Import unmanaged secrets
-
-#### CA key pair
-
-This stack requires a key pair of intermediate or root CA (Certificate Authority).
-To avoid sharing the pair other than this stack, we recommend to use an intermediate one.
-
-```shell
-kubectl create namespace cert-manager
-kubectl create secret tls -n cert-manager --cert ./cert.pem --key ./key.pem
-```
-
-#### GitHub PAT for actions-runner-controller
-
-actions-runner-controller requires a GitHub PAT (Personal Access Token) to initiate self-hosted runners.
-
-```shell
-kubectl create namespace actions-runner
-kubectl create secret generic -n actions-runner controller-manager --from-literal='github_token=<YOUR_PAT_HERE>'
-```
-
-### 2. Install ArgoCD
+### 1. Install ArgoCD
 
 ```shell
 kubectl create namespace argocd
@@ -40,7 +19,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 For details, refer the official getting started guide:
 https://argo-cd.readthedocs.io/en/stable/getting_started/ .
 
-### 3. Add this repository as an application
+### 2. Add this repository as an application
 
 Here is an application spec of this repository for ArgoCD:
 
@@ -68,6 +47,27 @@ spec:
 
 ```shell
 kubectl apply -f <path_to_spec>.yaml
+```
+
+### 3. Import unmanaged secrets
+
+#### CA key pair
+
+This stack requires a key pair of intermediate or root CA (Certificate Authority).
+To avoid sharing the pair other than this stack, we recommend to use an intermediate one.
+
+```shell
+kubectl create namespace cert-manager
+kubectl create secret tls -n cert-manager --cert ./cert.pem --key ./key.pem
+```
+
+#### GitHub PAT for actions-runner-controller
+
+actions-runner-controller requires a GitHub PAT (Personal Access Token) to initiate self-hosted runners.
+
+```shell
+kubectl create namespace actions-runner
+kubectl create secret generic -n actions-runner controller-manager --from-literal='github_token=<YOUR_PAT_HERE>'
 ```
 
 You are now ready to go!
