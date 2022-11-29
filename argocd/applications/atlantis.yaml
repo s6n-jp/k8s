@@ -20,7 +20,7 @@ spec:
         vcsSecretName: vcs-credentials
         githubApp:
           id: 266920
-        repoAllowList: "github.com/siketyan/*,github.com/s6n-jp/*"
+        orgAllowlist: "github.com/siketyan/*,github.com/s6n-jp/*"
   syncPolicy:
     automated: {}
     syncOptions:
