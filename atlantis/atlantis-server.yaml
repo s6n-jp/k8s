@@ -12,6 +12,12 @@ spec:
     service: atlantis
     port: 80
   routes:
+  - path: /events
+    action:
+      pass: upstream
   - path: /
     action:
       pass: upstream
+    location-snippets: |
+      allow 172.16.0.0/16;
+      deny  all;
