@@ -1,0 +1,17 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: atlantis-server
+  namespace: atlantis
+spec:
+  host: atlantis.k8s.s6n.jp
+  tls:
+    secret: atlantis-server-tls
+  upstreams:
+  - name: upstream
+    service: atlantis
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: upstream
