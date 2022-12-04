@@ -21,9 +21,9 @@ spec:
           - "/certs/tls.crt"
           - "--private-key-pem"
           - "/certs/tls.key"
-          - "-d"
+          - "--document-root"
           - "/htdocs"
-          - "b"
+          - "--bind-to"
           - "0.0.0.0:443"
         resources:
           limits:
