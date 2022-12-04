@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s6n-jp
+  namespace: s6n-jp
+spec:
+  selector:
+    matchLabels:
+      app: s6n-jp
+  template:
+    metadata:
+      labels:
+        app: s6n-jp
+    spec:
+      containers:
+      - name: s6n-jp
+        image: ghcr.io/siketyan/h123:latest
+        command:
+          - "--cert-chain-pem"
+          - "/certs/tls.crt"
+          - "--private-key-pem"
+          - "/certs/tls.key"
+          - "-d"
+          - "/htdocs"
+          - "b"
+          - "0.0.0.0:443"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 443
+        volumeMounts:
+        - name: secret-server-cert
+          mountPath: /certs
+          readOnly: true
+        - name: htdocs
+          mountPath: /htdocs
+          readOnly: true
+      volumes:
+      - name: secret-server-cert
+        secret:
+          secretName: s6n-jp-server-tls
+      - name: htdocs
+        persistentVolumeClaim:
+          claimName: htdocs-volume-claim
