@@ -16,6 +16,7 @@ spec:
       - name: s6n-jp
         image: ghcr.io/siketyan/h123:latest
         command:
+          - "/bin/h123"
           - "--cert-chain-pem"
           - "/certs/tls.crt"
           - "--private-key-pem"
