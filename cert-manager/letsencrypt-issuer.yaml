@@ -10,6 +10,13 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-issuer-secret
     solvers:
-    - http01:
-        ingress:
-          class: nginx
+    - dns01:
+        route53:
+          region: ap-northeast-1
+          hostedZoneID: Z03630992A14GBQBRDARG
+          accessKeyIDSecretRef:
+            name: aws-route53-credentials
+            key: access_key_id
+          secretAccessKeySecretRef:
+            name: aws-route53-credentials
+            key: secret_access_key
