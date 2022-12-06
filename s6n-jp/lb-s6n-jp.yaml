@@ -9,10 +9,10 @@ spec:
     protocol: TLS_PASSTHROUGH
   host: s6n-jp.k8s.s6n.jp
   upstreams:
-  - name: s6n-jp
+  - name: s6njp
     service: s6n-jp-service
     port: 443
   action:
-    pass: s6n-jp
+    pass: s6njp
   serverSnippets: |
     allow all;
