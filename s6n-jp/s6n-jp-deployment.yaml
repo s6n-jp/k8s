@@ -24,7 +24,7 @@ spec:
           - "--document-root"
           - "/htdocs"
           - "--bind-to"
-          - "0.0.0.0:443"
+          - "0.0.0.0:18443"
         env:
           - name: RUST_LOG
             value: DEBUG
@@ -33,7 +33,8 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 443
+        - name: https
+          containerPort: 18443
           protocol: TCP
         volumeMounts:
         - name: secret-server-cert

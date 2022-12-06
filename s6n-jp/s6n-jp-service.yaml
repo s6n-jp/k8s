@@ -7,6 +7,7 @@ spec:
   selector:
     app: s6n-jp
   ports:
-  - protocol: TCP
+  - name: https
+    protocol: TCP
     port: 443
-    targetPort: 443
+    targetPort: 18443
