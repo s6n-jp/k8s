@@ -18,10 +18,10 @@ spec:
       - name: controller.service.externalIPs[0]
         value: "172.16.2.1"
       - name: controller.service.externalIPs[1]
-        value: "217.178.36.114"
-      - name: controller.service.externalIPs[2]
-        value: "2409:10:9080:5400::c0:ffee"
+        value: "2001:470:fd54::c0:ffee"
       - name: controller.enableTLSPassthrough
+        value: "true"
+      - name: controller.enableSnippets
         value: "true"
   syncPolicy:
     automated: {}
