@@ -17,7 +17,7 @@ spec:
       - name: persistence.config.enabled
         value: "true"
       - name: image.tag
-        value: "2022-11-14"
+        value: "2023-01-08"
       - name: hostNetwork
         value: "true"
       - name: env.TZ
