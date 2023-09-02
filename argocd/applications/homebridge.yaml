@@ -16,8 +16,10 @@ spec:
       parameters:
       - name: persistence.config.enabled
         value: "true"
+      - name: image.repository
+        value: homebridge/homebridge
       - name: image.tag
-        value: "2023-01-08"
+        value: latest
       - name: hostNetwork
         value: "true"
       - name: env.TZ

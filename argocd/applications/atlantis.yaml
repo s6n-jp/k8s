@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/runatlantis/helm-charts.git
     path: charts/atlantis
-    targetRevision: atlantis-4.7.0
+    targetRevision: atlantis-4.15.1
     helm:
       parameters:
       - name: ingress.enabled
