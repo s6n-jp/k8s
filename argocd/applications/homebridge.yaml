@@ -19,7 +19,7 @@ spec:
       - name: image.repository
         value: homebridge/homebridge
       - name: image.tag
-        value: latest
+        value: "2024-01-08"
       - name: hostNetwork
         value: "true"
       - name: env.TZ
