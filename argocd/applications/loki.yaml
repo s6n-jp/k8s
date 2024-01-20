@@ -15,11 +15,11 @@ spec:
     helm:
       parameters:
       - name: loki.commonConfig.replication_factor
-        value: 1
+        value: "1"
       - name: loki.storage.type
         value: filesystem
       - name: singleBinary.replicas
-        value: 1
+        value: "1"
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
