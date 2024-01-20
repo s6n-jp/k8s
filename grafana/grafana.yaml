@@ -1,0 +1,20 @@
+apiVersion: k8s.nginx.org/v1
+kind: VirtualServer
+metadata:
+  name: grafana
+  namespace: grafana
+spec:
+  host: grafana.k8s.s6n.jp
+  tls:
+    secret: grafana-server-tls
+  upstreams:
+  - name: upstream
+    service: grafana
+    port: 80
+  routes:
+  - path: /
+    action:
+      pass: upstream
+  server-snippets: |
+    allow 172.16.0.0/16;
+    deny  all;
