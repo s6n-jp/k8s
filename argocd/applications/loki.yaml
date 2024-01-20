@@ -20,6 +20,8 @@ spec:
         value: filesystem
       - name: singleBinary.replicas
         value: "1"
+      - name: memberlist.service.publishNotReadyAddresses
+        value: "true"
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
