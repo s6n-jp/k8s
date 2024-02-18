@@ -26,6 +26,8 @@ spec:
         value: "true"
       - name: monitoring.lokiCanary.enabled
         value: "false"
+      - name: test.enabled
+        value: "false"
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
