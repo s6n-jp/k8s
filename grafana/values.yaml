@@ -8,6 +8,11 @@ extraSecretMounts:
   mountPath: /etc/secrets/grafana-google
   defaultMode: 0440
   readOnly: true
+- name: grafana-oauth
+  secretName: grafana-oauth
+  mountPath: /etc/secrets/grafana-oauth
+  defaultMode: 0440
+  readOnly: true
 
 admin:
   existingSecret: grafana-admin
