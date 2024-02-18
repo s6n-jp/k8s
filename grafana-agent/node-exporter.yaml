@@ -1,0 +1,36 @@
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: Integration
+metadata:
+ name: node-exporter
+ namespace: grafana-agent
+ labels:
+   agent: grafana-agent-integrations
+spec:
+ name: node_exporter
+ type:
+   allNodes: true
+   unique: true
+ config:
+   autoscrape:
+     enable: true
+     metrics_instance: default/prometheus
+   rootfs_path: /default/node_exporter/rootfs
+   sysfs_path: /default/node_exporter/sys
+   procfs_path: /default/node_exporter/proc
+ volumeMounts:
+   - mountPath: /default/node_exporter/proc
+     name: proc
+   - mountPath: /default/node_exporter/sys
+     name: sys
+   - mountPath: /default/node_exporter/rootfs
+     name: root
+ volumes:
+   - name: proc
+     hostPath:
+       path: /proc
+   - name: sys
+     hostPath:
+       path: /sys
+   - name: root
+     hostPath:
+       path: /root

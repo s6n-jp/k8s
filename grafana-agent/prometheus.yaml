@@ -1,0 +1,25 @@
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: MetricsInstance
+metadata:
+  name: prometheus
+  namespace: grafana-agent
+  labels:
+    agent: grafana-agent-metrics
+spec:
+  remoteWrite:
+  - url: http://prometheus-server.prometheus.svc.cluster.local./prometheus/remote/write
+
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector:
+    matchLabels:
+      instance: prometheus
+
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector:
+    matchLabels:
+      instance: prometheus
+
+  probeNamespaceSelector: {}
+  probeSelector:
+    matchLabels:
+      instance: prometheus
