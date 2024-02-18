@@ -13,7 +13,7 @@ spec:
  config:
    autoscrape:
      enable: true
-     metrics_instance: default/prometheus
+     metrics_instance: grafana-agent/prometheus
    rootfs_path: /default/node_exporter/rootfs
    sysfs_path: /default/node_exporter/sys
    procfs_path: /default/node_exporter/proc
