@@ -1,0 +1,14 @@
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: PodLogs
+metadata:
+  labels:
+    instance: loki
+  name: all-pod-logs
+  namespace: grafana-agent
+spec:
+  pipelineStages:
+    - docker: {}
+  namespaceSelector:
+    matchNames: {}
+  selector:
+    matchLabels: {}
