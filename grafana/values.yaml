@@ -1,0 +1,13 @@
+admin:
+  existingSecret: grafana-admin
+
+adminUser: siketyan
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: "Loki"
+      type: loki
+      access: proxy
+      url: http://loki-gateway.svc.cluster.local
