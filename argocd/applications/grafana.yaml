@@ -18,6 +18,9 @@ spec:
     - repoURL: https://github.com/s6n-jp/k8s
       targetRevision: main
       ref: k8s
+  revisionHistoryLimit: 1
   syncPolicy:
+    automated:
+      prune: true
     syncOptions:
     - CreateNamespace=true
