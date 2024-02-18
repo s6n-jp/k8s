@@ -24,6 +24,8 @@ spec:
         value: "1"
       - name: memberlist.service.publishNotReadyAddresses
         value: "true"
+      - name: monitoring.lokiCanary.enabled
+        value: "false"
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
