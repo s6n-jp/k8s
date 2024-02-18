@@ -41,3 +41,15 @@ grafana.ini:
     allowed_domains: s6n.jp
     hosted_domain: s6n.jp
     use_pkce: true
+  auth.generic_oauth:
+    enabled: true
+    name: UniFi Identity Enterprise
+    allow_sign_up: false
+    client_id: $__file{/etc/secrets/grafana-oauth/client_id}
+    client_secret: $__file{/etc/secrets/grafana-oauth/client_secret}
+    scopes: openid email profile
+    api_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/userinfo
+    auth_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/authorize
+    token_url: https://api-gw.uid2.alpha.ui.com/idp/api/v1/public/oauth/8b881c60-8e3d-4131-ac41-a936254c7c6e/token
+    use_pkce: true
+    use_refresh_token: true
