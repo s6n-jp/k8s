@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://grafana.github.io/helm-charts
     chart: loki
-    targetRevision: "5.41.7"
+    targetRevision: "5.43.1"
     helm:
       parameters:
       - name: loki.auth_enabled
@@ -27,3 +27,4 @@ spec:
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+    - ServerSideApply=true
