@@ -26,6 +26,8 @@ spec:
         value: "true"
       - name: monitoring.lokiCanary.enabled
         value: "false"
+      - name: monitoring.selfMonitoring.enabled
+        value: "false"
       - name: test.enabled
         value: "false"
   syncPolicy:
