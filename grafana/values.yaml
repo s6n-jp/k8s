@@ -25,8 +25,6 @@ datasources:
 
 grafana.ini:
   server:
-    domain: grafana.k8s.s6n.jp
-    protocol: https
     root_url: https://grafana.k8s.s6n.jp/
   auth.generic_oauth:
     enabled: true
