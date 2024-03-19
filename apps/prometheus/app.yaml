@@ -16,8 +16,6 @@ spec:
       parameters:
       - name: kube-state-metrics.enabled
         value: "false"
-      - name: prometheus-node-exporter.enabled
-        value: "false"
       - name: prometheus-pushgateway.enabled
         value: "false"
       - name: server.persistentVolume.storageClass
