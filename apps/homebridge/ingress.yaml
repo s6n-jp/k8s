@@ -18,8 +18,8 @@ spec:
           service:
             name: homebridge
             port:
-              number: 80
+              number: 8581
   tls:
   - hosts:
     - homebridge.k8s.s6n.jp
-    secretName: argocd-ingress-tls
+    secretName: homebridge-ingress-tls
