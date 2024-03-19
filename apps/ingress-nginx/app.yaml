@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: ingress-nginx
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    chart: ingress-nginx
+    targetRevision: 4.10.0
+    helm:
+      values: |-
+        controller:
+          replicaCount: "2"
+          extraArgs:
+            enable-ssl-passthrough: true
+          service:
+            ipFamilyPolicy: PreferDualStack
+            ipFamilies:
+            - IPv4
+            - IPv6
+        defaultBackend:
+          enabled: "true"
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
