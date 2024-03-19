@@ -31,6 +31,10 @@ datasources:
       type: prometheus
       access: proxy
       url: http://prometheus-server.prometheus.svc.cluster.local.
+    - name: "Tempo"
+      type: tempo
+      access: proxy
+      url: http://tempo.tempo.svc.cluster.local.
 
 grafana.ini:
   server:
