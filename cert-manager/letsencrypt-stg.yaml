@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-stg
+  namespace: cert-manager
+spec:
+  acme:
+    email: me@s6n.jp
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-stg-secret-key
+    solvers:
+    - selector:
+        dnsZones:
+          - "s6n.jp"
+      dns01:
+        route53:
+          region: us-east-1
+          accessKeyIDSecretRef:
+            name: route53-access-key
+            key: access-key-id
+          secretAccessKeySecretRef:
+            name: route53-access-key
+            key: secret-access-key

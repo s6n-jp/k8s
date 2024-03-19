@@ -5,17 +5,6 @@ metadata:
   namespace: argocd
 spec:
   secretName: argocd-repo-server-tls
-  duration: 2160h0m0s
-  renewBefore: 360h0m0s
-  subject:
-    countries:
-    - JP
-    provinces:
-    - Tokyo
-    localities:
-    - Kita
-    organizations:
-    - Naoki Ikeguchi
   commonName: argocd.k8s.s6n.jp
   dnsNames:
   - argocd.k8s.s6n.jp
@@ -23,5 +12,5 @@ spec:
   - server auth
   - client auth
   issuerRef:
-    name: ca-issuer
+    name: letsencrypt-prod
     kind: ClusterIssuer
