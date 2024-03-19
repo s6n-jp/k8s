@@ -16,6 +16,8 @@ spec:
       parameters:
       - name: persistence.config.enabled
         value: "true"
+      - name: persistence.config.storageClass
+        value: nfs-client
       - name: image.repository
         value: homebridge/homebridge
       - name: image.tag
@@ -25,5 +27,7 @@ spec:
       - name: env.TZ
         value: Asia/Tokyo
   syncPolicy:
+    automated: {}
     syncOptions:
     - CreateNamespace=true
+    - ServerSideApply=true
