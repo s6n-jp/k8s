@@ -18,6 +18,7 @@ spec:
           replicaCount: "2"
           extraArgs:
             enable-ssl-passthrough: true
+            default-ssl-certificate: ingress-nginx/default-certificate-tls
           service:
             ipFamilyPolicy: PreferDualStack
             ipFamilies:
