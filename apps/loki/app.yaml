@@ -22,6 +22,8 @@ spec:
         value: filesystem
       - name: singleBinary.replicas
         value: "1"
+      - name: singleBinary.persistence.storageClass
+        value: nfs-client
       - name: memberlist.service.publishNotReadyAddresses
         value: "true"
       - name: monitoring.lokiCanary.enabled
@@ -31,6 +33,7 @@ spec:
       - name: test.enabled
         value: "false"
   syncPolicy:
+    automated: {}
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true
