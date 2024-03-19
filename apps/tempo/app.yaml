@@ -20,8 +20,6 @@ spec:
         value: nfs-client
       - name: tempoQuery.enabled
         value: "true"
-      - name: tempoQuery.service.port
-        value: "80"
   syncPolicy:
     automated: {}
     syncOptions:

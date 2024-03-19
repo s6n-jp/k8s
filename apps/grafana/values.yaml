@@ -34,7 +34,7 @@ datasources:
     - name: "Tempo"
       type: tempo
       access: proxy
-      url: http://tempo.tempo.svc.cluster.local.
+      url: http://tempo.tempo.svc.cluster.local.:16686
 
 grafana.ini:
   server:
