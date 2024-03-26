@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://grafana.github.io/helm-charts
     chart: loki
-    targetRevision: "5.43.1"
+    targetRevision: "5.47.1"
     helm:
       parameters:
       - name: loki.auth_enabled
