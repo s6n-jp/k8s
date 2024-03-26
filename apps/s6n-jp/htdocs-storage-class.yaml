@@ -1,7 +1,0 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: htdocs-storage-class
-  namespace: s6n-jp
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
