@@ -22,6 +22,8 @@ spec:
         value: "1"
       - name: loki.storage.type
         value: filesystem
+      - name: loki.useTestSchema
+        value: "true"
       - name: singleBinary.replicas
         value: "1"
       - name: singleBinary.persistence.storageClass
