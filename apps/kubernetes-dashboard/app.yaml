@@ -18,12 +18,12 @@ spec:
     - CreateNamespace=true
     - ServerSideApply=true
   ignoreDifferences:
-  - group: ""
-    kind: Secret
+  - kind: Secret
     name: dashboard-kubernetes-dashboard-csrf
     jsonPointers:
     - /data/private.key
   - group: apps
     kind: Deployment
     jsonPointers:
+    - /spec/template/metadata/annotations/checksum~1config
     - /spec/template/metadata/annotations/rollme
