@@ -6,5 +6,5 @@ metadata:
 spec:
   addresses:
   - 172.16.8.250-172.16.8.254
-  - 240b:10:9080:8200:c0:ffee::/96
+  - 2001:f70:bf60:da01:c0:ffee::/96
   autoAssign: true

@@ -18,7 +18,7 @@ spec:
           service:
             name: gotify
             port:
-              number: 8581
+              number: 80
   tls:
   - hosts:
     - gotify.k8s.s6n.jp
