@@ -19,11 +19,6 @@ spec:
           extraArgs:
             enable-ssl-passthrough: true
             default-ssl-certificate: ingress-nginx/default-certificate-tls
-          service:
-            ipFamilyPolicy: PreferDualStack
-            ipFamilies:
-            - IPv4
-            - IPv6
         defaultBackend:
           enabled: "true"
   syncPolicy:
