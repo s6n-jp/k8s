@@ -27,6 +27,11 @@ spec:
           extraFlags:
           - web.enable-lifecycle
           - web.enable-remote-write-receiver
+        extraScrapeConfigs: |-
+          - job_name: proxmox-node-exporter
+            static_configs:
+            - targets:
+              - proxmox.s6n.jp:9100
   syncPolicy:
     automated: {}
     syncOptions:
