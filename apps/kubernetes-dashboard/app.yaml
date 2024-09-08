@@ -27,3 +27,27 @@ spec:
     jsonPointers:
     - /spec/template/metadata/annotations/checksum~1config
     - /spec/template/metadata/annotations/rollme
+  - group: apps
+    kind: Deployment
+    name: dashboard-kubernetes-dashboard-api
+    jsonPointers:
+    - /spec/template/spec/containers/0/env/1/valueFrom/resourceFieldRef
+    - /spec/template/spec/containers/0/env/2/valueFrom/resourceFieldRef
+  - group: apps
+    kind: Deployment
+    name: dashboard-kubernetes-dashboard-auth
+    jsonPointers:
+    - /spec/template/spec/containers/0/env/1/valueFrom/resourceFieldRef
+    - /spec/template/spec/containers/0/env/2/valueFrom/resourceFieldRef
+  - group: apps
+    kind: Deployment
+    name: dashboard-kubernetes-dashboard-metrics-scraper
+    jsonPointers:
+    - /spec/template/spec/containers/0/env/0/valueFrom/resourceFieldRef
+    - /spec/template/spec/containers/0/env/1/valueFrom/resourceFieldRef
+  - group: apps
+    kind: Deployment
+    name: dashboard-kubernetes-dashboard-web
+    jsonPointers:
+    - /spec/template/spec/containers/0/env/0/valueFrom/resourceFieldRef
+    - /spec/template/spec/containers/0/env/1/valueFrom/resourceFieldRef
