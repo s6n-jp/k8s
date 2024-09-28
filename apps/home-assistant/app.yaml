@@ -35,6 +35,28 @@ spec:
             secretName: home-assistant-ingress-tls
         configuration:
           enabled: true
+          templateConfig: |-
+            # Loads default set of integrations. Do not remove.
+            default_config:
+
+            {{- if .Values.ingress.enabled }}
+            http:
+              use_x_forwarded_for: true
+              trusted_proxies:
+                {{- range .Values.configuration.trusted_proxies }}
+                - {{ . }}
+                {{- end }}
+            {{- end}}
+
+            # Load frontend themes from the themes folder
+            frontend:
+              themes: !include_dir_merge_named themes
+
+            automation: !include automations.yaml
+            script: !include scripts.yaml
+            scene: !include scenes.yaml
+
+            homekit:
         persistence:
           enabled: true
           storageClass: nfs-client
