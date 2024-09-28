@@ -33,6 +33,8 @@ spec:
           - hosts:
             - home-assistant.k8s.s6n.jp
             secretName: home-assistant-ingress-tls
+        configuration:
+          enabled: true
         persistence:
           enabled: true
           storageClass: nfs-client
