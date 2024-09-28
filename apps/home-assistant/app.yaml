@@ -14,13 +14,28 @@ spec:
     targetRevision: 0.2.79
     helm:
       values: |-
-        persistence:
-          enabled: true
-          storageClass: nfs-client
-        hostNetwork: true
         env:
         - name: TZ
           value: Asia/Tokyo
+        hostNetwork: true
+        ingress:
+          enabled: true
+          className: nginx
+          annoations:
+            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          hosts:
+          - host: home-assistant.k8s.s6n.jp
+            paths:
+              - path: /
+                pathType: Prefix
+          tls:
+          - hosts:
+            - home-assistant.k8s.s6n.jp
+            secretName: home-assistant-ingress-tls
+        persistence:
+          enabled: true
+          storageClass: nfs-client
   syncPolicy:
     automated: {}
     syncOptions:
