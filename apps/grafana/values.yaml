@@ -44,7 +44,7 @@ grafana.ini:
     oauth_allow_insecure_email_lookup: true
   auth.google:
     enabled: true
-    allow_sign_up: false
+    allow_sign_up: true
     client_id: $__file{/etc/secrets/grafana-google/client_id}
     client_secret: $__file{/etc/secrets/grafana-google/client_secret}
     scopes: openid email profile https://www.googleapis.com/auth/cloud-identity.groups.readonly
