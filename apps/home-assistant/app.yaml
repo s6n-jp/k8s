@@ -65,3 +65,10 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - ServerSideApply=true
+  ignoreDifferences:
+  - group: apps
+    kind: StatefulSet
+    name: home-assistant
+    jsonPointers:
+    - /spec/volumeClaimTemplates/0/apiVersion
+    - /spec/volumeClaimTemplates/0/kind
