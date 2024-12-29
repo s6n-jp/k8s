@@ -1,7 +1,7 @@
 kind: Cluster
 name: k8s-s6n-jp
 kubernetes:
-  version: v1.31.4
+  version: v1.32.0
 talos:
   version: v1.9.1
 features:
