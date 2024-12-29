@@ -1,0 +1,36 @@
+kind: Cluster
+name: k8s-s6n-jp
+kubernetes:
+  version: v1.31.4
+talos:
+  version: v1.9.1
+features:
+  diskEncryption: true
+  enableWorkloadProxy: true
+  useEmbeddedDiscoveryService: true
+  backupConfiguration:
+    interval: 24h0m0s
+---
+kind: ControlPlane
+machines:
+  - f067d9a8-48d1-4460-bfca-fbda8777e57e
+---
+kind: Workers
+machines:
+  - a34cff71-ac78-46d9-914f-16a707a8811c
+  - 6bb0f8f4-76d4-46b2-b3e7-853b95c69fca
+---
+kind: Machine
+name: f067d9a8-48d1-4460-bfca-fbda8777e57e # control-0.k8s.s6n.jp
+systemExtensions:
+  - siderolabs/qemu-guest-agent
+---
+kind: Machine
+name: a34cff71-ac78-46d9-914f-16a707a8811c # worker-0.k8s.s6n.jp
+systemExtensions:
+  - siderolabs/qemu-guest-agent
+---
+kind: Machine
+name: 6bb0f8f4-76d4-46b2-b3e7-853b95c69fca # worker-1.k8s.s6n.jp
+systemExtensions:
+  - siderolabs/qemu-guest-agent
