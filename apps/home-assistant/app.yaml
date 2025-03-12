@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: http://pajikos.github.io/home-assistant-helm-chart/
     chart: home-assistant
-    targetRevision: 0.2.112
+    targetRevision: 0.2.113
     helm:
       values: |-
         env:
