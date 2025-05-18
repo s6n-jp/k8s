@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://rubxkube.github.io/charts/
     chart: gotify
-    targetRevision: 1.2.8
+    targetRevision: 1.2.9
     helm:
       values: |-
         common:
