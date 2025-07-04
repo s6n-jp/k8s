@@ -20,10 +20,6 @@ spec:
         value: nfs-client
       - name: tempoQuery.enabled
         value: "true"
-      - name: tempo.tag
-        value: 2.5.0
-      - name: tempoQuery.tag
-        value: 2.5.0
   syncPolicy:
     automated: {}
     syncOptions:
