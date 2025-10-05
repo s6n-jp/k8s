@@ -82,7 +82,7 @@ valkey:
   enabled: true
   image:
     repository: docker.io/valkey/valkey
-    tag: 8.0-alpine
+    tag: 9.0-alpine
     pullPolicy: IfNotPresent
   persistence:
     data:
