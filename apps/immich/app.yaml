@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: immich
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: oci://ghcr.io/immich-app/immich-charts/immich
+      chart: immich
+      targetRevision: "0.9.3"
+      helm:
+        valueFiles:
+        - $k8s/apps/immich/values.yaml
+    - repoURL: https://github.com/s6n-jp/k8s
+      targetRevision: main
+      ref: k8s
+  revisionHistoryLimit: 1
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
