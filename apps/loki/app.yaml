@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://grafana.github.io/helm-charts
     chart: loki
-    targetRevision: "6.46.0"
+    targetRevision: "6.48.0"
     helm:
       parameters:
       - name: deploymentMode
