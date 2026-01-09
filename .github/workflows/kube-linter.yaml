@@ -22,6 +22,7 @@ jobs:
         with:
           directory: '.'
           format: sarif
+          config: .kube-linter/config.yaml
           output-file: kube-linter.sarif
 
       - if: always()
