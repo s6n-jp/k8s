@@ -24,7 +24,7 @@ jobs:
           format: sarif
           config: .kube-linter.yaml
           output-file: kube-linter.sarif
-          version: 0.7.6
+          version: v0.7.6
 
       - if: always()
         uses: github/codeql-action/upload-sarif@v4
