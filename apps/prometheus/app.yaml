@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: prometheus
-    targetRevision: 29.1.0
+    targetRevision: 29.2.0
     helm:
       parameters:
       - name: kube-state-metrics.enabled
