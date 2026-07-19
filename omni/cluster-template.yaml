@@ -3,7 +3,7 @@ name: k8s-s6n-jp
 kubernetes:
   version: v1.36.0
 talos:
-  version: v1.13.0
+  version: v1.13.6
 features:
   diskEncryption: true
   enableWorkloadProxy: true
