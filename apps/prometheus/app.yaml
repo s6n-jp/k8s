@@ -32,6 +32,10 @@ spec:
             static_configs:
             - targets:
               - proxmox.s6n.jp:9100
+          - job_name: echonet-exporter
+            static_configs:
+            - targets:
+              - 172.16.2.253:9100
   syncPolicy:
     automated: {}
     syncOptions:
