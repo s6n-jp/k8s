@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paseo-hub
+  namespace: paseo-hub
+  labels:
+    app.kubernetes.io/name: paseo-hub
+    app.kubernetes.io/component: hub
+  annotations:
+    ignore-check.kube-linter.io/unset-cpu-requirements: "CPU limits cause throttling; requests are set"
+spec:
+  replicas: 1
+  strategy:
+    # Migrations run at startup against a single database, so never run two versions at once.
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paseo-hub
+      app.kubernetes.io/component: hub
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paseo-hub
+        app.kubernetes.io/component: hub
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: hub
+        image: ghcr.io/getpaseo/hub:0.3.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "3000"
+        - name: PASEO_HUB_APP_URL
+          value: https://paseo.k8s.s6n.jp
+        # Behind ingress-nginx, so take the client address from the proxy header.
+        - name: PASEO_HUB_TRUSTED_CLIENT_IP_HEADER
+          value: x-forwarded-for
+        - name: PASEO_REGISTRATION_MODE
+          value: invite_only
+        - name: PASEO_ORGANIZATION_CREATION
+          value: disabled
+        # Referenced by DATABASE_URL below, so it has to be declared first.
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: paseo-hub-postgres
+              key: password
+        - name: DATABASE_URL
+          value: postgres://paseo:$(POSTGRES_PASSWORD)@paseo-hub-postgres.paseo-hub.svc.cluster.local:5432/paseo_hub
+        # npm needs a writable HOME for its cache with a read-only root filesystem.
+        - name: HOME
+          value: /tmp
+        envFrom:
+        # PASEO_HUB_AUTH_SECRET, the bootstrap owner, and the provider credentials.
+        - secretRef:
+            name: paseo-hub
+        ports:
+        - name: http
+          containerPort: 3000
+        startupProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 5
+          # Hub does not listen until migrations finish, so allow up to 5 minutes.
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            memory: 1Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
