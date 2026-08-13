@@ -6,6 +6,10 @@ metadata:
   name: immich-database
 spec:
   instances: 1
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
   storage:
     storageClass: rook-ceph-block
     size: 1Gi
