@@ -29,8 +29,8 @@ metadata:
   namespace: immich
   name: immich-database
 spec:
-  name: app
-  owner: app
+  name: immich
+  owner: immich
   cluster:
     name: immich-database
   extensions:
