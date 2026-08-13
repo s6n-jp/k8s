@@ -1,9 +1,9 @@
 kind: Cluster
 name: k8s-s6n-jp
 kubernetes:
-  version: v1.36.0
+  version: v1.36.3
 talos:
-  version: v1.13.6
+  version: v1.13.8
 features:
   diskEncryption: true
   enableWorkloadProxy: true
