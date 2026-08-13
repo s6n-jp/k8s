@@ -7,6 +7,7 @@ metadata:
 spec:
   instances: 1
   storage:
+    storageClass: rook-ceph-block
     size: 1Gi
   imageName: ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
   postgresql:
