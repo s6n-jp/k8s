@@ -16,6 +16,11 @@ spec:
       values: |-
         controller:
           replicaCount: "2"
+          service:
+            ipFamilyPolicy: PreferDualStack
+            ipFamilies:
+            - IPv4
+            - IPv6
           extraArgs:
             enable-ssl-passthrough: true
             default-ssl-certificate: ingress-nginx/default-certificate-tls
