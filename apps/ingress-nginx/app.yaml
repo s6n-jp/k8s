@@ -25,6 +25,9 @@ spec:
                   app.kubernetes.io/name: ingress-nginx
                   app.kubernetes.io/component: controller
           service:
+            annotations:
+              # Pinned: the router forwards to these addresses.
+              lbipam.cilium.io/ips: 172.16.8.250,2001:f70:bf60:da00:c0:ffee::
             ipFamilyPolicy: PreferDualStack
             ipFamilies:
             - IPv4
