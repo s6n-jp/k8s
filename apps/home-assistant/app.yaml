@@ -19,34 +19,19 @@ spec:
           value: Asia/Tokyo
         hostNetwork: true
         ingress:
-          enabled: true
-          className: nginx
-          annoations:
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
-            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-          hosts:
-          - host: home-assistant.k8s.s6n.jp
-            paths:
-              - path: /
-                pathType: Prefix
-          tls:
-          - hosts:
-            - home-assistant.k8s.s6n.jp
-            secretName: home-assistant-ingress-tls
+          enabled: false
         configuration:
           enabled: true
           templateConfig: |-
             # Loads default set of integrations. Do not remove.
             default_config:
 
-            {{- if .Values.ingress.enabled }}
             http:
               use_x_forwarded_for: true
               trusted_proxies:
                 {{- range .Values.configuration.trusted_proxies }}
                 - {{ . }}
                 {{- end }}
-            {{- end}}
 
             # Load frontend themes from the themes folder
             frontend:

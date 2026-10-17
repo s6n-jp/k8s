@@ -6,11 +6,11 @@ metadata:
 spec:
   gatewayClassName: cilium
   addresses:
-  # TODO: switch to 172.16.8.250 / 2001:f70:bf60:da00:c0:ffee:: when ingress-nginx is removed
+  # The router forwards to these addresses.
   - type: IPAddress
-    value: 172.16.8.251
+    value: 172.16.8.250
   - type: IPAddress
-    value: 2001:f70:bf60:da00:c0:ffee:0:1
+    value: "2001:f70:bf60:da00:c0:ffee::"
   listeners:
   - name: http
     protocol: HTTP
