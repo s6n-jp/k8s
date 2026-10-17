@@ -5,15 +5,24 @@ metadata:
   namespace: argocd
 spec:
   parentRefs:
-  - name: default
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: default
     namespace: gateway
     sectionName: https
   hostnames:
   - argocd.k8s.s6n.jp
   rules:
-  - backendRefs:
-    - name: argocd-server
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - group: ""
+      kind: Service
+      name: argocd-server
       port: 443
+      weight: 1
     timeouts:
       request: 0s
 ---

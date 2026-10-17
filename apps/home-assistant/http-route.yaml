@@ -5,15 +5,24 @@ metadata:
   namespace: home-assistant
 spec:
   parentRefs:
-  - name: default
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: default
     namespace: gateway
     sectionName: https
   hostnames:
   - home-assistant.k8s.s6n.jp
   rules:
-  - backendRefs:
-    - name: home-assistant
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - group: ""
+      kind: Service
+      name: home-assistant
       port: 8080
+      weight: 1
     # Envoy's default 15s route timeout covers the whole response and would cut uploads and streams.
     timeouts:
       request: 0s
