@@ -6,6 +6,10 @@ kind: ConfigMap
 metadata:
   name: letsencrypt-roots
   namespace: argocd
+  annotations:
+    # Cilium copies this ConfigMap (with its annotations) into a Secret in cilium-secrets;
+    # keep that copy from marking the apps Application OutOfSync.
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 data:
   ca.crt: |
     -----BEGIN CERTIFICATE-----
