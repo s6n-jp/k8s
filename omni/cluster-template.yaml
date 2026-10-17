@@ -15,10 +15,11 @@ patches:
     inline:
       cluster:
         network:
-          # Pod CIDRs stay IPv4-only: existing nodes' spec.podCIDRs are immutable and IPv4-only,
-          # so a dual-stack flannel cannot obtain an IPv6 lease and crashloops.
+          # Nodes registered before the IPv6 pod subnet was added must be deleted and re-registered
+          # to get an IPv6 podCIDR; sync manifests (enabling IPv6 on flannel) only after all have one.
           podSubnets:
             - 10.244.0.0/16
+            - fd00:10:244::/48
           serviceSubnets:
             - 10.96.0.0/12
             - fd00:10:96::/112
