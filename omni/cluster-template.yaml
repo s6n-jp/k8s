@@ -1,9 +1,9 @@
 kind: Cluster
 name: k8s-s6n-jp
 kubernetes:
-  version: v1.36.3
+  version: v1.37.1
 talos:
-  version: v1.13.8
+  version: v1.14.4
 features:
   diskEncryption: true
   enableWorkloadProxy: true
@@ -15,9 +15,10 @@ patches:
     inline:
       cluster:
         network:
+          # Pod CIDRs stay IPv4-only: existing nodes' spec.podCIDRs are immutable and IPv4-only,
+          # so a dual-stack flannel cannot obtain an IPv6 lease and crashloops.
           podSubnets:
             - 10.244.0.0/16
-            - fd00:10:244::/48
           serviceSubnets:
             - 10.96.0.0/12
             - fd00:10:96::/112
