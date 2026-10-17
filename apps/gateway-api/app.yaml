@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway-api
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/kubernetes-sigs/gateway-api.git
+    # Experimental channel for the HTTPRoute ExternalAuth filter; must match the version Cilium supports.
+    path: config/crd/experimental
+    targetRevision: v1.6.3
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - ServerSideApply=true

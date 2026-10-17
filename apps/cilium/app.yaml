@@ -35,6 +35,11 @@ spec:
           autoMount:
             enabled: false
           hostRoot: /sys/fs/cgroup
+        gatewayAPI:
+          enabled: true
+          gatewayClass:
+            # Defined in apps/gateway with dual-stack CiliumGatewayClassConfig.
+            create: "false"
         hubble:
           tls:
             auto:
