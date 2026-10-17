@@ -19,6 +19,12 @@ spec:
         ipv6:
           enabled: true
         kubeProxyReplacement: true
+        l2announcements:
+          enabled: true
+        # L2 announcements hold one lease per Service; the default client rate limit is too low.
+        k8sClientRateLimit:
+          qps: 20
+          burst: 40
         k8sServiceHost: localhost
         k8sServicePort: 7445
         securityContext:
