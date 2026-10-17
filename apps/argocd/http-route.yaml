@@ -1,0 +1,34 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  parentRefs:
+  - name: default
+    namespace: gateway
+    sectionName: https
+  hostnames:
+  - argocd.k8s.s6n.jp
+  rules:
+  - backendRefs:
+    - name: argocd-server
+      port: 443
+    timeouts:
+      request: 0s
+---
+# argocd-server serves TLS itself (argocd-server-cert); verify it rather than switching it to insecure mode.
+apiVersion: gateway.networking.k8s.io/v1
+kind: BackendTLSPolicy
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  targetRefs:
+  - group: ""
+    kind: Service
+    name: argocd-server
+    sectionName: https
+  validation:
+    hostname: argocd.k8s.s6n.jp
+    wellKnownCACertificates: System

@@ -26,14 +26,3 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
-  - name: argocd
-    protocol: TLS
-    port: 443
-    hostname: argocd.k8s.s6n.jp
-    tls:
-      mode: Passthrough
-    allowedRoutes:
-      namespaces:
-        from: All
-      kinds:
-      - kind: TLSRoute
