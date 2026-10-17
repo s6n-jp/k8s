@@ -16,6 +16,14 @@ spec:
       values: |-
         controller:
           replicaCount: "2"
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: ingress-nginx
+                  app.kubernetes.io/component: controller
           service:
             ipFamilyPolicy: PreferDualStack
             ipFamilies:
