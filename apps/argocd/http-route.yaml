@@ -31,4 +31,7 @@ spec:
     sectionName: https
   validation:
     hostname: argocd.k8s.s6n.jp
-    wellKnownCACertificates: System
+    caCertificateRefs:
+    - group: ""
+      kind: ConfigMap
+      name: letsencrypt-roots
