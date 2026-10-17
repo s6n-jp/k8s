@@ -23,6 +23,20 @@ patches:
           serviceSubnets:
             - 10.96.0.0/12
             - fd00:10:96::/112
+  # Cilium (apps/cilium) replaces flannel and kube-proxy.
+  # Omni generates the legacy v1alpha1 .cluster.network.cni / .cluster.proxy, so the
+  # KubeFlannelCNIConfig / KubeProxyConfig documents don't apply here.
+  - name: disable-default-cni
+    inline:
+      cluster:
+        network:
+          cni:
+            name: none
+  - name: disable-kube-proxy
+    inline:
+      cluster:
+        proxy:
+          disabled: true
 ---
 kind: ControlPlane
 machines:

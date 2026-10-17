@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://helm.cilium.io
+    chart: cilium
+    targetRevision: 1.20.3
+    helm:
+      values: |-
+        ipam:
+          mode: kubernetes
+        ipv6:
+          enabled: true
+        kubeProxyReplacement: true
+        k8sServiceHost: localhost
+        k8sServicePort: 7445
+        securityContext:
+          capabilities:
+            ciliumAgent: [CHOWN, KILL, NET_ADMIN, NET_RAW, IPC_LOCK, SYS_ADMIN, SYS_RESOURCE, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+            cleanCiliumState: [NET_ADMIN, SYS_ADMIN, SYS_RESOURCE]
+        cgroup:
+          autoMount:
+            enabled: false
+          hostRoot: /sys/fs/cgroup
+        hubble:
+          tls:
+            auto:
+              # Generate certs in-cluster instead of embedding them in the rendered manifests.
+              method: cronJob
+  syncPolicy:
+    automated: {}
+    syncOptions:
+    - ServerSideApply=true
