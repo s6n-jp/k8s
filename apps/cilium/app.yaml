@@ -40,6 +40,9 @@ spec:
           gatewayClass:
             # Defined in apps/gateway with dual-stack CiliumGatewayClassConfig.
             create: "false"
+        envoy:
+          # Must match the agent; 1.20.4 stopped defaulting to ADS but the stale cilium-config key kept it.
+          xdsMode: ads
         hubble:
           tls:
             auto:
