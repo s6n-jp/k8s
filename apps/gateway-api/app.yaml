@@ -11,7 +11,7 @@ spec:
     repoURL: https://github.com/kubernetes-sigs/gateway-api.git
     # Experimental channel for the HTTPRoute ExternalAuth filter; must match the version Cilium supports.
     path: config/crd/experimental
-    targetRevision: v1.6.3
+    targetRevision: v1.7.0
   syncPolicy:
     automated: {}
     syncOptions:
